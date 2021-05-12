@@ -1,4 +1,4 @@
-//Bienvenido a mi Hotel:)
+//Bienvenido a mi Hotel:)...
 package froogresortbeta;
 
 
