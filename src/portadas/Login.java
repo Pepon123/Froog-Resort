@@ -5,10 +5,17 @@
  *///dd
 package portadas;
 
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.FontFormatException;
 import java.awt.Graphics;
+import java.awt.GraphicsEnvironment;
 import java.awt.Image;
+import java.io.File;
+import java.io.IOException;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 /**
  *
@@ -21,6 +28,38 @@ public class Login extends javax.swing.JFrame {
      */
     public Login() {
         initComponents();
+        jTextFieldCuenta.setBackground(new Color(0,0,0,0));
+        jTextFieldCuenta.setOpaque(false);
+        jTextFieldCuenta.setBorder(null);
+       jTextFieldCuenta.setForeground(Color.WHITE);
+        
+       jPasswordFieldContraseña.setBackground(new Color(0,0,0,0));
+       jPasswordFieldContraseña.setOpaque(false);
+       jPasswordFieldContraseña.setBorder(null);
+       jPasswordFieldContraseña.setForeground(Color.WHITE);
+       jLabelF1.setVisible(true);
+       
+        jLabelF2.setVisible(false);
+       jPanelFondoPrincipal.setSize(1920,1960);
+       
+       try {
+    //create the font to use. Specify the size!
+    Font fuente = Font.createFont(Font.TRUETYPE_FONT, new File("src\\font\\Braxton Free.otf")).deriveFont(60f);
+    GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+    //register the font
+    ge.registerFont(fuente);
+    jLabelTitulo.setFont(fuente);
+} catch (IOException e) {
+    e.printStackTrace();
+} catch(FontFormatException e) {
+    e.printStackTrace();
+}
+
+    
+   
+       
+       
+       
     }
 
     /**
@@ -39,86 +78,104 @@ public class Login extends javax.swing.JFrame {
         jLabelContraseña = new javax.swing.JLabel();
         jPasswordFieldContraseña = new javax.swing.JPasswordField();
         jButton1 = new javax.swing.JButton();
+        jLabelF1 = new javax.swing.JLabel();
+        jLabelF2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Bienvenido a Froog Resort");
         setResizable(false);
 
+        jPanelFondoPrincipal.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
         jLabelTitulo.setFont(new java.awt.Font("Times New Roman", 1, 48)); // NOI18N
         jLabelTitulo.setForeground(new java.awt.Color(255, 255, 255));
         jLabelTitulo.setText("Froog Resort");
+        jPanelFondoPrincipal.add(jLabelTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 90, -1, -1));
 
         jLabelCuenta.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         jLabelCuenta.setForeground(new java.awt.Color(255, 255, 255));
         jLabelCuenta.setText("Cuenta:");
+        jPanelFondoPrincipal.add(jLabelCuenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 730, 158, 44));
+
+        jTextFieldCuenta.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        jTextFieldCuenta.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTextFieldCuentaMouseClicked(evt);
+            }
+        });
+        jTextFieldCuenta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldCuentaActionPerformed(evt);
+            }
+        });
+        jPanelFondoPrincipal.add(jTextFieldCuenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 740, 160, 40));
 
         jLabelContraseña.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         jLabelContraseña.setForeground(new java.awt.Color(255, 255, 255));
         jLabelContraseña.setText("Contraseña:");
+        jPanelFondoPrincipal.add(jLabelContraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 830, -1, 60));
+
+        jPasswordFieldContraseña.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        jPasswordFieldContraseña.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPasswordFieldContraseñaMouseClicked(evt);
+            }
+        });
+        jPasswordFieldContraseña.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jPasswordFieldContraseñaActionPerformed(evt);
+            }
+        });
+        jPanelFondoPrincipal.add(jPasswordFieldContraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 840, 158, 50));
 
         jButton1.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         jButton1.setText("Ingresar");
         jButton1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanelFondoPrincipal.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 1010, -1, -1));
 
-        javax.swing.GroupLayout jPanelFondoPrincipalLayout = new javax.swing.GroupLayout(jPanelFondoPrincipal);
-        jPanelFondoPrincipal.setLayout(jPanelFondoPrincipalLayout);
-        jPanelFondoPrincipalLayout.setHorizontalGroup(
-            jPanelFondoPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelFondoPrincipalLayout.createSequentialGroup()
-                .addGroup(jPanelFondoPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanelFondoPrincipalLayout.createSequentialGroup()
-                        .addGap(439, 439, 439)
-                        .addComponent(jLabelTitulo))
-                    .addGroup(jPanelFondoPrincipalLayout.createSequentialGroup()
-                        .addGap(391, 391, 391)
-                        .addGroup(jPanelFondoPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabelCuenta)
-                            .addComponent(jLabelContraseña))
-                        .addGap(39, 39, 39)
-                        .addGroup(jPanelFondoPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextFieldCuenta, javax.swing.GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE)
-                            .addComponent(jPasswordFieldContraseña)))
-                    .addGroup(jPanelFondoPrincipalLayout.createSequentialGroup()
-                        .addGap(516, 516, 516)
-                        .addComponent(jButton1)))
-                .addContainerGap(459, Short.MAX_VALUE))
-        );
+        jLabelF1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/flecha1.png"))); // NOI18N
+        jPanelFondoPrincipal.add(jLabelF1, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 730, 127, 64));
 
-        jPanelFondoPrincipalLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jLabelCuenta, jPasswordFieldContraseña, jTextFieldCuenta});
-
-        jPanelFondoPrincipalLayout.setVerticalGroup(
-            jPanelFondoPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelFondoPrincipalLayout.createSequentialGroup()
-                .addGap(113, 113, 113)
-                .addComponent(jLabelTitulo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 521, Short.MAX_VALUE)
-                .addGroup(jPanelFondoPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextFieldCuenta, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelCuenta, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanelFondoPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jPasswordFieldContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelContraseña))
-                .addGap(18, 18, 18)
-                .addComponent(jButton1)
-                .addGap(36, 36, 36))
-        );
-
-        jPanelFondoPrincipalLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jLabelCuenta, jPasswordFieldContraseña, jTextFieldCuenta});
+        jLabelF2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/flecha1.png"))); // NOI18N
+        jPanelFondoPrincipal.add(jLabelF2, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 830, 117, 65));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanelFondoPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanelFondoPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, 1205, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanelFondoPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanelFondoPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, 1082, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jPasswordFieldContraseñaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordFieldContraseñaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPasswordFieldContraseñaActionPerformed
+
+    private void jTextFieldCuentaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextFieldCuentaMouseClicked
+        // TODO add your handling code here:
+        jLabelF1.setVisible(true);
+        
+        jLabelF2.setVisible(false);
+
+      
+        
+    }//GEN-LAST:event_jTextFieldCuentaMouseClicked
+
+    private void jPasswordFieldContraseñaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPasswordFieldContraseñaMouseClicked
+        // TODO add your handling code here:
+        jLabelF1.setVisible(false);
+        jLabelF2.setVisible(true);
+    }//GEN-LAST:event_jPasswordFieldContraseñaMouseClicked
+
+    private void jTextFieldCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldCuentaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldCuentaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -129,6 +186,9 @@ public class Login extends javax.swing.JFrame {
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
+        
+        
+        
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -149,6 +209,7 @@ public class Login extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            
             public void run() {
                 new Login().setVisible(true);
             }
@@ -159,6 +220,8 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabelContraseña;
     private javax.swing.JLabel jLabelCuenta;
+    private javax.swing.JLabel jLabelF1;
+    private javax.swing.JLabel jLabelF2;
     private javax.swing.JLabel jLabelTitulo;
     private javax.swing.JPanel jPanelFondoPrincipal;
     private javax.swing.JPasswordField jPasswordFieldContraseña;
