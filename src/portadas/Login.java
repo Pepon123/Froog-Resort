@@ -11,18 +11,30 @@ import java.awt.FontFormatException;
 import java.awt.Graphics;
 import java.awt.GraphicsEnvironment;
 import java.awt.Image;
+import java.sql.Statement;
 import java.io.File;
 import java.io.IOException;
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
 
 /**
  *
  * @author Cynthia Maritza
  */
 public class Login extends javax.swing.JFrame {
-
+    
+    Conexion dad=new Conexion();
+    Connection son=dad.conexion();
     /**
      * Creates new form Login
      */
@@ -131,6 +143,11 @@ public class Login extends javax.swing.JFrame {
         jButton1.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         jButton1.setText("Ingresar");
         jButton1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         jPanelFondoPrincipal.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 1010, -1, -1));
 
         jLabelF1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/flecha1.png"))); // NOI18N
@@ -176,6 +193,45 @@ public class Login extends javax.swing.JFrame {
     private void jTextFieldCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldCuentaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldCuentaActionPerformed
+    //captura de datos
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+
+       String usuario=jTextFieldCuenta.getText();
+       String password=jPasswordFieldContraseña.getText();
+       String[] vect=new String[2];
+       Statement st;
+       ResultSet resul;
+        
+       try{
+           st=son.createStatement();
+           resul=st.executeQuery("SELECT USUARIO,PASSW FROM login WHERE USUARIO= '"+usuario+"' && PASSW = MD5('"+password+"')");
+           while(resul.next()){
+               for (int i = 0; i < vect.length; i++) {
+                   vect[i]=resul.getString(i+1);
+               }
+           }
+           String encrip=MD5(password);
+           if(usuario.equals(vect[0])&& encrip.equals(vect[1])){
+               JOptionPane.showMessageDialog(null, "BIENVENIDO");
+               Registros screen=new Registros();
+               screen.setLocationRelativeTo(null);
+               screen.setVisible(true);
+               screen.setSize(700,500);
+               this.setVisible(false);
+               
+           }else{
+               JOptionPane.showMessageDialog(null, "ERROR\n Usuario o Contraseña invalidos");
+           }
+       }catch(SQLException e){
+           JOptionPane.showMessageDialog(null, "FALLOS TECNICOS");
+       }catch(Exception ex){
+           Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null,ex);
+       }
+       
+       
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -215,6 +271,13 @@ public class Login extends javax.swing.JFrame {
             }
         });
     }
+    //ENCRIPTACION
+    public static String MD5(String password) throws Exception {
+        MessageDigest m=MessageDigest.getInstance("MD5");
+        m.update(password.getBytes(),0,password.length());
+        return new BigInteger(1,m.digest()).toString(16); 
+   }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
