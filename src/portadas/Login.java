@@ -11,30 +11,18 @@ import java.awt.FontFormatException;
 import java.awt.Graphics;
 import java.awt.GraphicsEnvironment;
 import java.awt.Image;
-import java.sql.Statement;
 import java.io.File;
 import java.io.IOException;
-import java.math.BigInteger;
-import java.security.MessageDigest;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ImageIcon;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-
 
 /**
  *
  * @author Cynthia Maritza
  */
 public class Login extends javax.swing.JFrame {
-    
-    Conexion dad=new Conexion();
-    Connection son=dad.conexion();
+
     /**
      * Creates new form Login
      */
@@ -49,23 +37,23 @@ public class Login extends javax.swing.JFrame {
        jPasswordFieldContraseña.setOpaque(false);
        jPasswordFieldContraseña.setBorder(null);
        jPasswordFieldContraseña.setForeground(Color.WHITE);
-       jLabelF1.setVisible(true);
+       //jLabelF1.setVisible(true);
        
-        jLabelF2.setVisible(false);
+        //jLabelF2.setVisible(false);
        jPanelFondoPrincipal.setSize(1920,1960);
        
        try {
-    //create the font to use. Specify the size!
-    Font fuente = Font.createFont(Font.TRUETYPE_FONT, new File("src\\font\\Braxton Free.otf")).deriveFont(60f);
-    GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-    //register the font
-    ge.registerFont(fuente);
-    jLabelTitulo.setFont(fuente);
-} catch (IOException e) {
-    e.printStackTrace();
-} catch(FontFormatException e) {
-    e.printStackTrace();
-}
+        //create the font to use. Specify the size!
+        Font fuente = Font.createFont(Font.TRUETYPE_FONT, new File("src\\font\\Braxton Free.otf")).deriveFont(60f);
+        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        //register the font
+        ge.registerFont(fuente);
+        jLabelTitulo.setFont(fuente);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch(FontFormatException e) {
+            e.printStackTrace();
+        }
 
     
    
@@ -92,6 +80,7 @@ public class Login extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jLabelF1 = new javax.swing.JLabel();
         jLabelF2 = new javax.swing.JLabel();
+        jLabelTitulo1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Bienvenido a Froog Resort");
@@ -99,10 +88,10 @@ public class Login extends javax.swing.JFrame {
 
         jPanelFondoPrincipal.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabelTitulo.setFont(new java.awt.Font("Times New Roman", 1, 48)); // NOI18N
+        jLabelTitulo.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         jLabelTitulo.setForeground(new java.awt.Color(255, 255, 255));
-        jLabelTitulo.setText("Froog Resort");
-        jPanelFondoPrincipal.add(jLabelTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 90, -1, -1));
+        jLabelTitulo.setText("Valle de los Sapos Arcoíris No. 129 Boullevard Martinaisse, Revachol.");
+        jPanelFondoPrincipal.add(jLabelTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 140, -1, -1));
 
         jLabelCuenta.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         jLabelCuenta.setForeground(new java.awt.Color(255, 255, 255));
@@ -143,11 +132,6 @@ public class Login extends javax.swing.JFrame {
         jButton1.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         jButton1.setText("Ingresar");
         jButton1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
         jPanelFondoPrincipal.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 1010, -1, -1));
 
         jLabelF1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/flecha1.png"))); // NOI18N
@@ -156,11 +140,16 @@ public class Login extends javax.swing.JFrame {
         jLabelF2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/flecha1.png"))); // NOI18N
         jPanelFondoPrincipal.add(jLabelF2, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 830, 117, 65));
 
+        jLabelTitulo1.setFont(new java.awt.Font("Times New Roman", 1, 48)); // NOI18N
+        jLabelTitulo1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelTitulo1.setText("Froog Resort");
+        jPanelFondoPrincipal.add(jLabelTitulo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 90, -1, -1));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanelFondoPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, 1205, Short.MAX_VALUE)
+            .addComponent(jPanelFondoPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -176,9 +165,9 @@ public class Login extends javax.swing.JFrame {
 
     private void jTextFieldCuentaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextFieldCuentaMouseClicked
         // TODO add your handling code here:
-        jLabelF1.setVisible(true);
+       // jLabelF1.setVisible(true);
         
-        jLabelF2.setVisible(false);
+        //jLabelF2.setVisible(false);
 
       
         
@@ -186,52 +175,13 @@ public class Login extends javax.swing.JFrame {
 
     private void jPasswordFieldContraseñaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPasswordFieldContraseñaMouseClicked
         // TODO add your handling code here:
-        jLabelF1.setVisible(false);
-        jLabelF2.setVisible(true);
+        //jLabelF1.setVisible(false);
+        //jLabelF2.setVisible(true);
     }//GEN-LAST:event_jPasswordFieldContraseñaMouseClicked
 
     private void jTextFieldCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldCuentaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldCuentaActionPerformed
-    //captura de datos
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-
-       String usuario=jTextFieldCuenta.getText();
-       String password=jPasswordFieldContraseña.getText();
-       String[] vect=new String[2];
-       Statement st;
-       ResultSet resul;
-        
-       try{
-           st=son.createStatement();
-           resul=st.executeQuery("SELECT USUARIO,PASSW FROM login WHERE USUARIO= '"+usuario+"' && PASSW = MD5('"+password+"')");
-           while(resul.next()){
-               for (int i = 0; i < vect.length; i++) {
-                   vect[i]=resul.getString(i+1);
-               }
-           }
-           String encrip=MD5(password);
-           if(usuario.equals(vect[0])&& encrip.equals(vect[1])){
-               JOptionPane.showMessageDialog(null, "BIENVENIDO");
-               Registros screen=new Registros();
-               screen.setLocationRelativeTo(null);
-               screen.setVisible(true);
-               screen.setSize(700,500);
-               this.setVisible(false);
-               
-           }else{
-               JOptionPane.showMessageDialog(null, "ERROR\n Usuario o Contraseña invalidos");
-           }
-       }catch(SQLException e){
-           JOptionPane.showMessageDialog(null, "FALLOS TECNICOS");
-       }catch(Exception ex){
-           Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null,ex);
-       }
-       
-       
-        
-    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -271,13 +221,6 @@ public class Login extends javax.swing.JFrame {
             }
         });
     }
-    //ENCRIPTACION
-    public static String MD5(String password) throws Exception {
-        MessageDigest m=MessageDigest.getInstance("MD5");
-        m.update(password.getBytes(),0,password.length());
-        return new BigInteger(1,m.digest()).toString(16); 
-   }
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
@@ -286,6 +229,7 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelF1;
     private javax.swing.JLabel jLabelF2;
     private javax.swing.JLabel jLabelTitulo;
+    private javax.swing.JLabel jLabelTitulo1;
     private javax.swing.JPanel jPanelFondoPrincipal;
     private javax.swing.JPasswordField jPasswordFieldContraseña;
     private javax.swing.JTextField jTextFieldCuenta;
