@@ -6,16 +6,18 @@
 package portadas;
 
 import basededatos.Habitacion;
+import basededatos.MySqlConn;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.beans.PropertyVetoException;
 import java.util.ArrayList;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JDesktopPane;
 import javax.swing.JPanel;
+import misframes.Bajas;
 import misframes.Altas;
-import misframes.EsquemaPisos;
 //import misframes.Altas;
 
 /**
@@ -24,14 +26,13 @@ import misframes.EsquemaPisos;
  */
 public class Menu extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Menu
-     */
+    public static MySqlConn conn;
     private ArrayList <Habitacion> habitaciones = new ArrayList();
     
     public Menu() {
         initComponents();
         this.setLocationRelativeTo(this);
+        conn= new MySqlConn(); 
     }
 
     /**
@@ -76,6 +77,8 @@ public class Menu extends javax.swing.JFrame {
             .addGap(0, 679, Short.MAX_VALUE)
         );
 
+        jDesktopPane1.setLayer(jPanel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
         javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
         jDesktopPane1.setLayout(jDesktopPane1Layout);
         jDesktopPane1Layout.setHorizontalGroup(
@@ -86,7 +89,6 @@ public class Menu extends javax.swing.JFrame {
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
-        jDesktopPane1.setLayer(jPanel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jMenuRegistro.setText("Registro");
         jMenuRegistro.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -191,17 +193,17 @@ public class Menu extends javax.swing.JFrame {
 
     private void jMenuSalidaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuSalidaMouseClicked
         // TODO add your handling code here:
-        /*
+        
         this.repaint();
         Bajas salida = new Bajas();
         this.jDesktopPane1.add(salida);
-        try{
+        try {
             salida.setMaximum(true);
         } catch (PropertyVetoException ex) {
-            java.util.logging.Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
         }
         salida.show();
-       */ 
+        
     }//GEN-LAST:event_jMenuSalidaMouseClicked
 
     /**
