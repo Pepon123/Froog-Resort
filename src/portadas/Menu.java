@@ -15,6 +15,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JDesktopPane;
 import javax.swing.JPanel;
 import misframes.Altas;
+import misframes.EsquemaPisos;
 //import misframes.Altas;
 
 /**
