@@ -12,6 +12,7 @@ import java.awt.event.ItemListener;
 import java.util.HashMap;
 import java.util.Iterator;
 import javax.swing.JRadioButton;
+import portadas.Menu;
 
 
 /**
@@ -24,19 +25,14 @@ public class EsquemaPisos extends javax.swing.JInternalFrame {
      * Creates new form EsquemaPisos
      */
     int tipo;
-    MySqlConn conn = new MySqlConn();
     HashMap <Integer,JRadioButton> habitaciones;
     
     public EsquemaPisos() {
-        initComponents();
-        tipo=1;
-        habitaciones = new HashMap();
-        
+        initComponents();  
     }
     
-    public EsquemaPisos(int tipo,MySqlConn conn) {
+    public EsquemaPisos(int tipo) {
         initComponents();
-        this.conn = conn;
         this.tipo = tipo;
         habitaciones = new HashMap();
     }
@@ -47,9 +43,10 @@ public class EsquemaPisos extends javax.swing.JInternalFrame {
         public void itemStateChanged(ItemEvent ie) {
             JRadioButton aux = (JRadioButton)ie.getSource();
             int num = Integer.parseInt(aux.getText().trim());
-            if(aux.isSelected())
+            if(aux.isSelected()){
+                Altas.seleccionada = num;
                 habitaciones.get(num).setBackground(Color.green);
-            else
+            }else
                 habitaciones.get(num).setBackground(Color.white);
         }
         };
@@ -101,7 +98,7 @@ public class EsquemaPisos extends javax.swing.JInternalFrame {
         jRadioButton217 = new javax.swing.JRadioButton();
         jRadioButton218 = new javax.swing.JRadioButton();
         jRadioButton214 = new javax.swing.JRadioButton();
-        jButton1 = new javax.swing.JButton();
+        jButtonConfirmar = new javax.swing.JButton();
 
         setTitle("Selección de Habitación");
         addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
@@ -506,7 +503,12 @@ public class EsquemaPisos extends javax.swing.JInternalFrame {
 
         jRadioButton224.getAccessibleContext().setAccessibleName("");
 
-        jButton1.setText("Confirmar Habitación");
+        jButtonConfirmar.setText("Confirmar Habitación");
+        jButtonConfirmar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonConfirmarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout JPanelFondoLayout = new javax.swing.GroupLayout(JPanelFondo);
         JPanelFondo.setLayout(JPanelFondoLayout);
@@ -515,7 +517,7 @@ public class EsquemaPisos extends javax.swing.JInternalFrame {
             .addGroup(JPanelFondoLayout.createSequentialGroup()
                 .addGap(23, 23, 23)
                 .addGroup(JPanelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton1)
+                    .addComponent(jButtonConfirmar)
                     .addGroup(JPanelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(jPanelPiso1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jPanelPiso3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
@@ -529,7 +531,7 @@ public class EsquemaPisos extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanelPiso3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
+                .addComponent(jButtonConfirmar)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -587,13 +589,13 @@ public class EsquemaPisos extends javax.swing.JInternalFrame {
         //Evento
         ManejadorDeEventos escucha = new ManejadorDeEventos();
         //Habilitar habitaciones no ocupadas
-        String query = "select * from habitaciones where tipo = " + "'" + tipo + "'";// and disponible = " + "'" + true + "'";
-        this.conn.Consult(query);
+        String query = "select * from habitaciones where tipo = " + "'" + tipo + "' and disponible = " + "'" + 0 + "'";
+        Menu.conn.Consult(query);
         int n = 0;
         try {
-            this.conn.rs.last();
-            n = this.conn.rs.getRow();
-            this.conn.rs.first();
+            Menu.conn.rs.last();
+            n = Menu.conn.rs.getRow();
+            Menu.conn.rs.first();
         } catch (Exception e){
             System.out.println("Error #1...");
         }
@@ -601,11 +603,11 @@ public class EsquemaPisos extends javax.swing.JInternalFrame {
             int num;
             for (int i = 0; i < n; i++) {
                 try{
-                    num = conn.rs.getInt(2);
+                    num = Menu.conn.rs.getInt(2);
                     habitaciones.get(num).setBackground(Color.white);
                     habitaciones.get(num).setEnabled(true);
                     habitaciones.get(num).addItemListener(escucha);
-                    this.conn.rs.next();
+                    Menu.conn.rs.next();
                 } catch (Exception e){
                     System.out.println("Error #2...");
                 }
@@ -613,11 +615,17 @@ public class EsquemaPisos extends javax.swing.JInternalFrame {
         }//fin if
     }//GEN-LAST:event_formInternalFrameActivated
 
+    private void jButtonConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConfirmarActionPerformed
+        // TODO add your handling code here:
+        Altas.jTextFieldHabitacion.setText(Integer.toString(Altas.seleccionada));
+        this.dispose();
+    }//GEN-LAST:event_jButtonConfirmarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel JPanelFondo;
     private javax.swing.ButtonGroup buttonGroupHabitaciones;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButtonConfirmar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
