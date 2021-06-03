@@ -92,6 +92,11 @@ public class Portada extends javax.swing.JFrame {
 
         jButtonSiguiente.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         jButtonSiguiente.setText("Siguiente");
+        jButtonSiguiente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSiguienteActionPerformed(evt);
+            }
+        });
 
         jLabelFecha.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         jLabelFecha.setText("Fecha: ");
@@ -168,6 +173,12 @@ public class Portada extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButtonSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSiguienteActionPerformed
+        // TODO add your handling code here:
+        new Login().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButtonSiguienteActionPerformed
 
     /**
      * @param args the command line arguments

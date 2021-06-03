@@ -5,6 +5,7 @@
  *///dd
 package portadas;
 
+import basededatos.MySqlConn;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontFormatException;
@@ -13,10 +14,12 @@ import java.awt.GraphicsEnvironment;
 import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
+import java.sql.SQLException;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-
+import org.apache.commons.codec.digest.DigestUtils;
 /**
  *
  * @author Cynthia Maritza
@@ -26,6 +29,8 @@ public class Login extends javax.swing.JFrame {
     /**
      * Creates new form Login
      */
+    MySqlConn conn = new MySqlConn();
+    private Object DigestUtils;
     public Login() {
         initComponents();
         jTextFieldCuenta.setBackground(new Color(0,0,0,0));
@@ -78,8 +83,6 @@ public class Login extends javax.swing.JFrame {
         jLabelContraseña = new javax.swing.JLabel();
         jPasswordFieldContraseña = new javax.swing.JPasswordField();
         jButton1 = new javax.swing.JButton();
-        jLabelF1 = new javax.swing.JLabel();
-        jLabelF2 = new javax.swing.JLabel();
         jLabelTitulo1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -99,6 +102,7 @@ public class Login extends javax.swing.JFrame {
         jPanelFondoPrincipal.add(jLabelCuenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 730, 158, 44));
 
         jTextFieldCuenta.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        jTextFieldCuenta.setOpaque(false);
         jTextFieldCuenta.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTextFieldCuentaMouseClicked(evt);
@@ -117,6 +121,7 @@ public class Login extends javax.swing.JFrame {
         jPanelFondoPrincipal.add(jLabelContraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 830, -1, 60));
 
         jPasswordFieldContraseña.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        jPasswordFieldContraseña.setOpaque(false);
         jPasswordFieldContraseña.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jPasswordFieldContraseñaMouseClicked(evt);
@@ -132,13 +137,12 @@ public class Login extends javax.swing.JFrame {
         jButton1.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         jButton1.setText("Ingresar");
         jButton1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         jPanelFondoPrincipal.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 1010, -1, -1));
-
-        jLabelF1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/flecha1.png"))); // NOI18N
-        jPanelFondoPrincipal.add(jLabelF1, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 730, 127, 64));
-
-        jLabelF2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/flecha1.png"))); // NOI18N
-        jPanelFondoPrincipal.add(jLabelF2, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 830, 117, 65));
 
         jLabelTitulo1.setFont(new java.awt.Font("Times New Roman", 1, 48)); // NOI18N
         jLabelTitulo1.setForeground(new java.awt.Color(255, 255, 255));
@@ -183,6 +187,33 @@ public class Login extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldCuentaActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        String cuenta, contraseña, query;
+        cuenta = this.jTextFieldCuenta.getText().trim();
+        query = "select * from cuentas where cuenta = "+"'"+cuenta+"'";
+        this.conn.Consult(query);
+        try{
+            String contraseñaMySql = this.conn.rs.getString(2);
+            char [] passw = this.jPasswordFieldContraseña.getPassword();
+            contraseña = new String(passw);
+            String contraseñaencriptada;
+            contraseñaencriptada = org.apache.commons.codec.digest.DigestUtils.md5Hex(contraseña);
+            System.out.println(contraseñaencriptada);
+            if(contraseñaMySql.equals(contraseñaencriptada)){
+                JOptionPane.showMessageDialog(this,"Bienvenido "+this.conn.rs.getString(1)+" al sistema.");
+                new Menu().setVisible(true);
+                this.dispose();
+            }else{
+                JOptionPane.showMessageDialog(this,"Error en la contraseña."); 
+            }
+        }catch(SQLException ex){
+            JOptionPane.showMessageDialog(this,"No existe la cuenta");
+            System.out.println("No existe la cuenta");
+        }
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -226,8 +257,6 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabelContraseña;
     private javax.swing.JLabel jLabelCuenta;
-    private javax.swing.JLabel jLabelF1;
-    private javax.swing.JLabel jLabelF2;
     private javax.swing.JLabel jLabelTitulo;
     private javax.swing.JLabel jLabelTitulo1;
     private javax.swing.JPanel jPanelFondoPrincipal;
