@@ -10,11 +10,15 @@ import basededatos.MySqlConn;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.beans.PropertyVetoException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JDesktopPane;
+import javax.swing.JOptionPane;
+import static javax.swing.JOptionPane.ERROR_MESSAGE;
+import static javax.swing.JOptionPane.PLAIN_MESSAGE;
 import javax.swing.JPanel;
 import misframes.Bajas;
 import misframes.Altas;
@@ -123,12 +127,27 @@ public class Menu extends javax.swing.JFrame {
         jMenuConsultas.add(jMenuItem5);
 
         jMenuItem6.setText("Costos de Habitaciones");
+        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem6ActionPerformed(evt);
+            }
+        });
         jMenuConsultas.add(jMenuItem6);
 
         jMenuItem7.setText("Consulta por Nombre");
+        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem7ActionPerformed(evt);
+            }
+        });
         jMenuConsultas.add(jMenuItem7);
 
         jMenuItem8.setText("Consultar Habitación");
+        jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem8ActionPerformed(evt);
+            }
+        });
         jMenuConsultas.add(jMenuItem8);
 
         jMenuItem9.setText("Consulta por Piso");
@@ -204,6 +223,40 @@ public class Menu extends javax.swing.JFrame {
         salida.show();
         
     }//GEN-LAST:event_jMenuSalidaMouseClicked
+
+    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
+        // TODO add your handling code here:
+        String nombre = JOptionPane.showInputDialog(this, "Por favor, inserte el nombre del huesped que desea consultar: ");
+        String query= "select * from clientes where NAME= "+"'"+nombre+"'";
+        Menu.conn.Consult(query);
+        try {
+            String nom = Menu.conn.rs.getString(1);
+            int hab = Menu.conn.rs.getInt(3);
+            int piso = hab/100;
+            JOptionPane.showMessageDialog(this,"Huesped: "+nom+"\nHabitación: "+hab+"\nPiso: "+piso,"Cliente encontrado.",PLAIN_MESSAGE);
+        } catch (SQLException ex) {
+             JOptionPane.showMessageDialog( null, "La habitación que insertaste se encuentra desocupada.", "Inserta otro nombre.", ERROR_MESSAGE); 
+        }
+        
+    }//GEN-LAST:event_jMenuItem7ActionPerformed
+
+    private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
+        // TODO add your handling code here:
+        int hab = Integer.parseInt(JOptionPane.showInputDialog(this, "Por favor, inserte número de habitación a consultar: "));
+        String query= "select * from clientes where HABITACION= "+"'"+hab+"'";
+        Menu.conn.Consult(query);
+        try {
+            String nom = Menu.conn.rs.getString(1);
+            JOptionPane.showMessageDialog(this,"Huesped que reside en la habitación: "+nom,"Cliente encontrado.",PLAIN_MESSAGE);
+        } catch (SQLException ex) {
+             JOptionPane.showMessageDialog( null, "La habitación que insertaste se encuentra desocupada.", "Inserta otro número.", ERROR_MESSAGE); 
+        }
+    }//GEN-LAST:event_jMenuItem8ActionPerformed
+
+    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+        // TODO add your handling code here:
+        JOptionPane.showMessageDialog(this,"Sencilla: $3000\nDoble: $5000\nTriple: $9000 ","Costos de Habitaciones.",PLAIN_MESSAGE);
+    }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     /**
      * @param args the command line arguments
