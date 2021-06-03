@@ -81,6 +81,8 @@ public class Menu extends javax.swing.JFrame {
             .addGap(0, 836, Short.MAX_VALUE)
         );
 
+        jDesktopPane1.setLayer(jPanel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
         javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
         jDesktopPane1.setLayout(jDesktopPane1Layout);
         jDesktopPane1Layout.setHorizontalGroup(
@@ -91,7 +93,6 @@ public class Menu extends javax.swing.JFrame {
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
-        jDesktopPane1.setLayer(jPanel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jMenuRegistro.setText("Registro");
         jMenuRegistro.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -115,6 +116,11 @@ public class Menu extends javax.swing.JFrame {
         jMenuConsultas.add(jMenuItem1);
 
         jMenuItem2.setText("Ingresos");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
         jMenuConsultas.add(jMenuItem2);
 
         jMenuItem3.setText("(%) Ocupación por tipo de Habitación");
@@ -263,6 +269,10 @@ public class Menu extends javax.swing.JFrame {
         // TODO add your handling code here:
         JOptionPane.showMessageDialog(this,"Sencilla: $3000\nDoble: $5000\nTriple: $9000 ","Costos de Habitaciones.",PLAIN_MESSAGE);
     }//GEN-LAST:event_jMenuItem6ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+         JOptionPane.showMessageDialog(null, "El total de ingresos generados \nhasta el momento por el hotel es de: $"+Bajas.ingresoTotal);
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     /**
      * @param args the command line arguments
