@@ -235,14 +235,20 @@ public class Menu extends javax.swing.JFrame {
             int piso = hab/100;
             JOptionPane.showMessageDialog(this,"Huesped: "+nom+"\nHabitación: "+hab+"\nPiso: "+piso,"Cliente encontrado.",PLAIN_MESSAGE);
         } catch (SQLException ex) {
-             JOptionPane.showMessageDialog( null, "La habitación que insertaste se encuentra desocupada.", "Inserta otro nombre.", ERROR_MESSAGE); 
+             JOptionPane.showMessageDialog( null, "El cliente insertado no existe.", "Inserta otro nombre.", ERROR_MESSAGE); 
         }
         
     }//GEN-LAST:event_jMenuItem7ActionPerformed
 
     private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
         // TODO add your handling code here:
-        int hab = Integer.parseInt(JOptionPane.showInputDialog(this, "Por favor, inserte número de habitación a consultar: "));
+        int hab = 0;
+        try{
+            hab = Integer.parseInt(JOptionPane.showInputDialog(this, "Por favor, inserte número de habitación a consultar: "));
+        }catch(NumberFormatException ex){
+            JOptionPane.showMessageDialog( null, "El formato de ingreso no es correcto (Debe de ser un número).", "Inserta otro número.", ERROR_MESSAGE); 
+            return;
+        }
         String query= "select * from clientes where HABITACION= "+"'"+hab+"'";
         Menu.conn.Consult(query);
         try {
