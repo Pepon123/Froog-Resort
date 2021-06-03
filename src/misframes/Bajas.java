@@ -23,8 +23,12 @@ import java.util.logging.Logger;
 public class Bajas extends javax.swing.JInternalFrame {
    
     static String [] recibo= new String[10]; 
+    static String servicioExtra;
     private Map <String,Integer> servicios = new HashMap();
     String hab;
+    Scanner sc = new Scanner(System.in);
+    static String texto = " ", ingreso="";
+    public static int ingresoTotal=0;
     
     
     public Bajas() {
@@ -227,12 +231,22 @@ public class Bajas extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(this, "La habitacion seleccionada es incorrecta\n Intentelo de nuevo");
             }
         
+        try {
+            archivoIngresos();
+        } catch (IOException ex) {
+            System.out.println("Error al abrir el archivo");
+        }
+        
+        
+        
     }//GEN-LAST:event_jButtonSalidaActionPerformed
 
     private void jButtonLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLimpiarActionPerformed
         this.jTextFieldRegistroSalida.setText("");
     }//GEN-LAST:event_jButtonLimpiarActionPerformed
 
+    
+    
     private void jButtonPDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPDFActionPerformed
         
         
@@ -241,7 +255,7 @@ public class Bajas extends javax.swing.JInternalFrame {
         
         
         try {
-            crearPDF("victor","victor","victor","victor","Victor");
+            crearPDF();
             JOptionPane.showMessageDialog(this, "PDF generado");
         } catch (DocumentException ex) {
             Logger.getLogger(Bajas.class.getName()).log(Level.SEVERE, null, ex);
@@ -251,7 +265,47 @@ public class Bajas extends javax.swing.JInternalFrame {
         
     }//GEN-LAST:event_jButtonPDFActionPerformed
 
-   public static void crearPDF(String nombre,String nomEscuela,String motivo,String fecha,String cuidad) throws FileNotFoundException, DocumentException, BadElementException, IOException {
+     public static void archivoIngresos() throws IOException{
+        int ingresoTotal=0;
+       try {
+            FileReader entrada=new FileReader("ingresos.txt");
+
+                int c=0;
+
+                while(c!=-1) {
+                    c=entrada.read();
+
+                    char letra=(char)c;
+
+                    texto+=letra;
+                }
+
+                entrada.close();
+                
+                ingresoTotal= Integer.parseInt(texto);
+                System.out.println(texto);
+
+        } catch (IOException e) {
+
+            System.out.println("No se ha encontrado el archivo");
+        }
+    
+        ingresoTotal+= Integer.parseInt(recibo[8]); 
+        
+        try {
+            FileWriter archivo = new FileWriter("ingresos.txt", false); 
+
+            PrintWriter pw = new PrintWriter(archivo);          
+                
+                pw.println(""+ingresoTotal);
+
+            
+            archivo.close();
+        } catch (IOException e) {
+        }
+   }
+    
+   public static void crearPDF( ) throws FileNotFoundException, DocumentException, BadElementException, IOException {
  
         com.itextpdf.text.Document documento = new com.itextpdf.text.Document();
         
@@ -265,7 +319,7 @@ public class Bajas extends javax.swing.JInternalFrame {
         //imag.setAbsolutePosition(190f, 690f);
         //documento.add(imag);
         
-        Paragraph titulo = new Paragraph("\n\n\nFroog Resort Hotel \n\n ",
+        Paragraph titulo = new Paragraph("\n\nFroog Resort Hotel ",
                 FontFactory.getFont("arial",
                 34, Font.BOLD, BaseColor.GREEN)
         );
@@ -273,22 +327,60 @@ public class Bajas extends javax.swing.JInternalFrame {
         titulo.setAlignment(Element.ALIGN_CENTER);
         documento.add(titulo);
         
-        Paragraph lema  = new Paragraph("\n\n\n Aqui va el lema \n\n ",
+        Paragraph lema  = new Paragraph(" Aqui va el lema \n ",
                 FontFactory.getFont("arial",
-                24, Font.BOLD, BaseColor.BLACK)
+                24, Font.ITALIC, BaseColor.BLACK)
         );
         
-        titulo.setAlignment(Element.ALIGN_CENTER);
+        lema.setAlignment(Element.ALIGN_CENTER);
         documento.add(lema);
         
-        Paragraph ubicacion   = new Paragraph("\n\n\n Aqui va el lema \n\n ",
+        Paragraph ubicacion   = new Paragraph("Aqui va la ubicacion  \n\n ",
                 FontFactory.getFont("arial",
-                20, Font.BOLD, BaseColor.BLACK)
+                16, Font.BOLD, BaseColor.BLACK)
         );
         
-        titulo.setAlignment(Element.ALIGN_CENTER);
+        ubicacion.setAlignment(Element.ALIGN_CENTER);
         documento.add(ubicacion);
         
+         Paragraph fechaHoy   = new Paragraph(" A:"+recibo[0]+ " \n\n ",
+                FontFactory.getFont("arial",
+                14, Font.BOLD, BaseColor.BLACK)
+        );
+        
+        fechaHoy.setAlignment(Element.ALIGN_CENTER);
+        documento.add(fechaHoy);
+        
+          Paragraph DatosEstancia   = new Paragraph("Informacion de la estancia:",
+                FontFactory.getFont("arial",
+                22, Font.BOLD, BaseColor.BLACK)
+        );
+        
+        DatosEstancia.setAlignment(Element.ALIGN_CENTER);
+        documento.add(DatosEstancia);
+        
+        
+        Paragraph nomHuesp   = new Paragraph("\n\n   Huesped:    "+recibo[0]+ "\n   Cuidad de origen:    "+
+                recibo[1]+"\n   Fecha de ingreso:    "+recibo[2]+" \n   Fecha de salida:    "+recibo[3]+
+                "\n   Tipo de habitacion:    "+recibo[4]+"\n   Costo de la habitacion por noche:    "+recibo[5]+
+                "\n   Dias de estancia en Frogg Resort:    "+recibo[6]+ " \n   Sub total:    "+recibo[7]+
+                "\n   Total a pagar:    "+recibo[8]+"\n   Lista de cargos extra:\n\n\n                 "+ servicioExtra,
+                FontFactory.getFont("arial",
+                12, Font.BOLD, BaseColor.BLACK)
+        );
+        
+        nomHuesp.setAlignment(Element.ALIGN_LEFT);
+        documento.add(nomHuesp);
+        
+         Paragraph gerente   = new Paragraph("\n\n\n____________________________\n\nVictor Zaragoza\n\n Gracias por su visita vuelva pronto",
+                FontFactory.getFont("arial",
+                12, Font.BOLD, BaseColor.BLACK)
+        );
+        
+        gerente.setAlignment(Element.ALIGN_CENTER);
+        documento.add(gerente);
+        
+      
        
         
         documento.close();
