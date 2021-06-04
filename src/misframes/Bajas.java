@@ -24,12 +24,12 @@ public class Bajas extends javax.swing.JInternalFrame {
    
     static String [] recibo= new String[10]; 
     static String servicioExtra;
+    static String texto = " ", ingreso="";
     private Map <String,Integer> servicios = new HashMap();
+    public static int ingresoTotal=0;
     String hab;
     Scanner sc = new Scanner(System.in);
-    static String texto = " ", ingreso="";
-    public static int ingresoTotal=0;
-    
+  
     
     public Bajas() {
         initComponents();
@@ -40,7 +40,6 @@ public class Bajas extends javax.swing.JInternalFrame {
         servicios.put("Servicio de niñera", 200);
         servicios.put("Servicio de comida", 300);
         servicios.put("Servicio de GYM", 100);
-        
         
     }
 
@@ -55,7 +54,6 @@ public class Bajas extends javax.swing.JInternalFrame {
         jButtonPDF = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jButtonLimpiar = new javax.swing.JButton();
 
         setTitle("Salida");
 
@@ -86,13 +84,6 @@ public class Bajas extends javax.swing.JInternalFrame {
         jLabel3.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel3.setText("¿Deseas guardar un recibo en un PDF?");
 
-        jButtonLimpiar.setText("Limpiar");
-        jButtonLimpiar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonLimpiarActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -105,9 +96,7 @@ public class Bajas extends javax.swing.JInternalFrame {
                             .addComponent(jLabel2)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(10, 10, 10)
-                                .addComponent(jButtonSalida)
-                                .addGap(63, 63, 63)
-                                .addComponent(jButtonLimpiar))))
+                                .addComponent(jButtonSalida))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(18, 18, 18)
@@ -117,7 +106,7 @@ public class Bajas extends javax.swing.JInternalFrame {
                         .addComponent(jLabel3)
                         .addGap(53, 53, 53)
                         .addComponent(jButtonPDF, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(461, Short.MAX_VALUE))
+                .addContainerGap(487, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -129,9 +118,7 @@ public class Bajas extends javax.swing.JInternalFrame {
                     .addComponent(jLabel1)
                     .addComponent(jTextFieldRegistroSalida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(29, 29, 29)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonSalida)
-                    .addComponent(jButtonLimpiar))
+                .addComponent(jButtonSalida)
                 .addGap(119, 119, 119)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
@@ -157,10 +144,10 @@ public class Bajas extends javax.swing.JInternalFrame {
 
     private void jButtonSalidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalidaActionPerformed
        
-         hab = this.jTextFieldRegistroSalida.getText().trim(); 
-        
         String servicioExtra="";
         int contCargos=0;
+        
+        hab = this.jTextFieldRegistroSalida.getText().trim(); 
         
         for( Iterator it = servicios.keySet().iterator(); it.hasNext();) {
             
@@ -170,8 +157,7 @@ public class Bajas extends javax.swing.JInternalFrame {
                 contCargos+=valor; 
                 servicioExtra+= clave+ " : "+valor+" , ";
                 
-            }
-            
+            } 
         }
         
         String query= "select * from habitaciones where HABITACION = "+"'"+hab+"'";
@@ -209,19 +195,16 @@ public class Bajas extends javax.swing.JInternalFrame {
                     Menu.conn.Update(query); 
                     
                     query="Update habitaciones set DISPONIBLE= '0' where HABITACION = "+hab;
-                    Menu.conn.Update(query);
-                            
-                            
-                          
+                    Menu.conn.Update(query);      
    
-                  JOptionPane.showMessageDialog(this, "Salida registrada exitosamente, puede guardar"
+                    JOptionPane.showMessageDialog(this, "Salida registrada exitosamente, puede guardar"
                           + " su recibo haciendo click en el boton de abajo byeeeeeee");
                 }
                 
                 else{
-                 System.out.println("No existe la habitacion");
-                System.out.println("No ocupado ");
-                JOptionPane.showMessageDialog(this, "La habitacion seleccionada es incorrecta\n Intentelo de nuevo");  
+                    System.out.println("No existe la habitacion");
+                    System.out.println("No ocupado ");
+                    JOptionPane.showMessageDialog(this, "La habitacion seleccionada es incorrecta\n Intentelo de nuevo");  
                 }
                 
                 
@@ -237,23 +220,17 @@ public class Bajas extends javax.swing.JInternalFrame {
             System.out.println("Error al abrir el archivo");
         }
         
-        
+        this.jTextFieldRegistroSalida.setText("");
         
     }//GEN-LAST:event_jButtonSalidaActionPerformed
-
-    private void jButtonLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLimpiarActionPerformed
-        this.jTextFieldRegistroSalida.setText("");
-    }//GEN-LAST:event_jButtonLimpiarActionPerformed
 
     
     
     private void jButtonPDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPDFActionPerformed
-        
-        
+   
         String query= "select * from clientes where HABITACION = "+"'"+hab+"'";
         Menu.conn.Consult(query);
-        
-        
+
         try {
             crearPDF();
             JOptionPane.showMessageDialog(this, "PDF generado");
@@ -266,40 +243,36 @@ public class Bajas extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonPDFActionPerformed
 
      public static void archivoIngresos() throws IOException{
-        int ingresoTotal=0;
-       try {
+        float ingresoTotal=0;
+        
+        try {
             FileReader entrada=new FileReader("ingresos.txt");
+            
+            int c=0;
 
-                int c=0;
+            while(c!=-1) {
+                c=entrada.read();
 
-                while(c!=-1) {
-                    c=entrada.read();
+                char letra=(char)c;
+                texto+=letra;
+            }
 
-                    char letra=(char)c;
-
-                    texto+=letra;
-                }
-
-                entrada.close();
+            entrada.close();
                 
-                ingresoTotal= Integer.parseInt(texto);
-                System.out.println(texto);
+            ingresoTotal= Float.parseFloat(texto);
+            System.out.println(texto);
 
         } catch (IOException e) {
-
             System.out.println("No se ha encontrado el archivo");
         }
     
-        ingresoTotal+= Integer.parseInt(recibo[8]); 
+        ingresoTotal+= Float.parseFloat(recibo[8]); 
         
         try {
             FileWriter archivo = new FileWriter("ingresos.txt", false); 
+            PrintWriter pw = new PrintWriter(archivo);              
+            pw.println(""+ingresoTotal);
 
-            PrintWriter pw = new PrintWriter(archivo);          
-                
-                pw.println(""+ingresoTotal);
-
-            
             archivo.close();
         } catch (IOException e) {
         }
@@ -321,7 +294,7 @@ public class Bajas extends javax.swing.JInternalFrame {
         
         Paragraph titulo = new Paragraph("\n\nFroog Resort Hotel ",
                 FontFactory.getFont("arial",
-                34, Font.BOLD, BaseColor.GREEN)
+                32, Font.BOLD, BaseColor.GREEN)
         );
         
         titulo.setAlignment(Element.ALIGN_CENTER);
@@ -329,7 +302,7 @@ public class Bajas extends javax.swing.JInternalFrame {
         
         Paragraph lema  = new Paragraph(" Aqui va el lema \n ",
                 FontFactory.getFont("arial",
-                24, Font.ITALIC, BaseColor.BLACK)
+                22, Font.ITALIC, BaseColor.BLACK)
         );
         
         lema.setAlignment(Element.ALIGN_CENTER);
@@ -337,13 +310,13 @@ public class Bajas extends javax.swing.JInternalFrame {
         
         Paragraph ubicacion   = new Paragraph("Aqui va la ubicacion  \n\n ",
                 FontFactory.getFont("arial",
-                16, Font.BOLD, BaseColor.BLACK)
+                15, Font.BOLD, BaseColor.BLACK)
         );
         
         ubicacion.setAlignment(Element.ALIGN_CENTER);
         documento.add(ubicacion);
         
-         Paragraph fechaHoy   = new Paragraph(" A:"+recibo[0]+ " \n\n ",
+        Paragraph fechaHoy   = new Paragraph(" A:"+recibo[0]+ " \n\n ",
                 FontFactory.getFont("arial",
                 14, Font.BOLD, BaseColor.BLACK)
         );
@@ -351,7 +324,7 @@ public class Bajas extends javax.swing.JInternalFrame {
         fechaHoy.setAlignment(Element.ALIGN_CENTER);
         documento.add(fechaHoy);
         
-          Paragraph DatosEstancia   = new Paragraph("Informacion de la estancia:",
+        Paragraph DatosEstancia   = new Paragraph("Informacion de la estancia:",
                 FontFactory.getFont("arial",
                 22, Font.BOLD, BaseColor.BLACK)
         );
@@ -359,14 +332,13 @@ public class Bajas extends javax.swing.JInternalFrame {
         DatosEstancia.setAlignment(Element.ALIGN_CENTER);
         documento.add(DatosEstancia);
         
-        
         Paragraph nomHuesp   = new Paragraph("\n\n   Huesped:    "+recibo[0]+ "\n   Cuidad de origen:    "+
                 recibo[1]+"\n   Fecha de ingreso:    "+recibo[2]+" \n   Fecha de salida:    "+recibo[3]+
                 "\n   Tipo de habitacion:    "+recibo[4]+"\n   Costo de la habitacion por noche:    "+recibo[5]+
                 "\n   Dias de estancia en Frogg Resort:    "+recibo[6]+ " \n   Sub total:    "+recibo[7]+
                 "\n   Total a pagar:    "+recibo[8]+"\n   Lista de cargos extra:\n\n\n                 "+ servicioExtra,
                 FontFactory.getFont("arial",
-                12, Font.BOLD, BaseColor.BLACK)
+                11, Font.BOLD, BaseColor.BLACK)
         );
         
         nomHuesp.setAlignment(Element.ALIGN_LEFT);
@@ -380,15 +352,11 @@ public class Bajas extends javax.swing.JInternalFrame {
         gerente.setAlignment(Element.ALIGN_CENTER);
         documento.add(gerente);
         
-      
-       
-        
         documento.close();
         
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButtonLimpiar;
     private javax.swing.JButton jButtonPDF;
     private javax.swing.JButton jButtonSalida;
     private javax.swing.JLabel jLabel1;
