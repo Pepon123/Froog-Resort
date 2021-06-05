@@ -20,6 +20,7 @@ import static javax.swing.JOptionPane.PLAIN_MESSAGE;
 import javax.swing.JPanel;
 import misframes.Bajas;
 import misframes.Altas;
+import misframes.ConsultasGraficas;
 
 public class Menu extends javax.swing.JFrame {
 
@@ -69,8 +70,6 @@ public class Menu extends javax.swing.JFrame {
             .addGap(0, 836, Short.MAX_VALUE)
         );
 
-        jDesktopPane1.setLayer(jPanel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
-
         javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
         jDesktopPane1.setLayout(jDesktopPane1Layout);
         jDesktopPane1Layout.setHorizontalGroup(
@@ -81,6 +80,7 @@ public class Menu extends javax.swing.JFrame {
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
+        jDesktopPane1.setLayer(jPanel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jMenuRegistro.setText("Registro");
         jMenuRegistro.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -112,12 +112,27 @@ public class Menu extends javax.swing.JFrame {
         jMenuConsultas.add(jMenuItem2);
 
         jMenuItem3.setText("(%) Ocupación por tipo de Habitación");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
         jMenuConsultas.add(jMenuItem3);
 
         jMenuItem4.setText("Gráfica sobre tipo de Habitaciones");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
         jMenuConsultas.add(jMenuItem4);
 
         jMenuItem5.setText("(%) Ocupación del Hotel");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
         jMenuConsultas.add(jMenuItem5);
 
         jMenuItem6.setText("Costos de Habitaciones");
@@ -350,6 +365,48 @@ public class Menu extends javax.swing.JFrame {
                 
         
     }//GEN-LAST:event_jMenuItem9ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        // TODO add your handling code here:
+        this.repaint();
+        //this.jPanel1.repaint();
+        ConsultasGraficas consultas= new ConsultasGraficas(1);
+        this.jDesktopPane1.add(consultas);
+        try{
+            consultas.setMaximum(true);
+        } catch (PropertyVetoException ex) {
+            java.util.logging.Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        consultas.show();
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        // TODO add your handling code here:
+        this.repaint();
+        //this.jPanel1.repaint();
+        ConsultasGraficas consultas= new ConsultasGraficas(2);
+        this.jDesktopPane1.add(consultas);
+        try{
+            consultas.setMaximum(true);
+        } catch (PropertyVetoException ex) {
+            java.util.logging.Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        consultas.show();
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+        // TODO add your handling code here:
+        this.repaint();
+        //this.jPanel1.repaint();
+        ConsultasGraficas consultas= new ConsultasGraficas(3);
+        this.jDesktopPane1.add(consultas);
+        try{
+            consultas.setMaximum(true);
+        } catch (PropertyVetoException ex) {
+            java.util.logging.Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        consultas.show();
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     public static void main(String args[]) {
 
