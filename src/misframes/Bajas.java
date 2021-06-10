@@ -282,71 +282,105 @@ public class Bajas extends javax.swing.JInternalFrame {
  
         com.itextpdf.text.Document documento = new com.itextpdf.text.Document();
         
-        FileOutputStream ficheroPDF = new FileOutputStream("Recibo.pdf");
+        FileOutputStream ficheroPDF = new FileOutputStream("src/recibos/Recibo.pdf");
         PdfWriter.getInstance(documento, ficheroPDF);
         documento.open();
         
-        //Image imag= Image.getInstance("D:\\\\Documents\\\\Java\\\\GenerarPDF\\\\java.png");
-        //Image firma= Image.getInstance("D:\\Documents\\Java\\GenerarPDF\\firma.png");
-         
-        //imag.setAbsolutePosition(190f, 690f);
-        //documento.add(imag);
+        Image imag= Image.getInstance("src/imagenes/logo.jpg");
         
-        Paragraph titulo = new Paragraph("\n\nFroog Resort Hotel ",
+        imag.setAlignment(Element.ALIGN_LEFT);
+        documento.add(imag);
+        
+         Paragraph ubicacion   = new Paragraph("Direccion:\nValle de los sapos #129 Boullevard Martinaisse, Revachol\n Telefono:\n 44566451 \n Clave de facturación:\n 2023465893194746 ",
                 FontFactory.getFont("arial",
-                32, Font.BOLD, BaseColor.GREEN)
+                9, Font.BOLD, BaseColor.BLACK)
+        );
+        
+         
+        ubicacion.setAlignment(Element.ALIGN_CENTER);
+        documento.add(ubicacion);
+        
+        Paragraph titulo = new Paragraph("Froog Resort Hotel ",
+                FontFactory.getFont("arial",
+                28, Font.BOLD, BaseColor.GREEN)
         );
         
         titulo.setAlignment(Element.ALIGN_CENTER);
         documento.add(titulo);
         
-        Paragraph lema  = new Paragraph(" Aqui va el lema \n ",
+       
+        
+        Paragraph fechaHoy   = new Paragraph("\n A:"+recibo[3]+ " \n ",
                 FontFactory.getFont("arial",
-                22, Font.ITALIC, BaseColor.BLACK)
+                12, Font.BOLD, BaseColor.BLACK)
         );
         
-        lema.setAlignment(Element.ALIGN_CENTER);
-        documento.add(lema);
+        fechaHoy.setAlignment(Element.ALIGN_RIGHT);
+        documento.add(fechaHoy);
         
-        Paragraph ubicacion   = new Paragraph("Aqui va la ubicacion  \n\n ",
-                FontFactory.getFont("arial",
-                15, Font.BOLD, BaseColor.BLACK)
-        );
-        
-        ubicacion.setAlignment(Element.ALIGN_CENTER);
-        documento.add(ubicacion);
-        
-        Paragraph fechaHoy   = new Paragraph(" A:"+recibo[0]+ " \n\n ",
+        Paragraph DatosCliente   = new Paragraph("_______________________________________________                      "
+                + "                               Datos Cliente        _______________________________________________",
                 FontFactory.getFont("arial",
                 14, Font.BOLD, BaseColor.BLACK)
         );
         
-        fechaHoy.setAlignment(Element.ALIGN_CENTER);
-        documento.add(fechaHoy);
+        DatosCliente.setAlignment(Element.ALIGN_CENTER);
+        documento.add(DatosCliente);
         
-        Paragraph DatosEstancia   = new Paragraph("Informacion de la estancia:",
+        Paragraph nomHuesp   = new Paragraph("\n\n                  Razón social:              "+recibo[0]+
+                "                                        Cuidad de origen:                "+ recibo[1]+
+                "\n                  Fecha de ingreso:              "+recibo[2]+
+                "                                        Fecha de salida:                 "+recibo[3],
                 FontFactory.getFont("arial",
-                22, Font.BOLD, BaseColor.BLACK)
-        );
-        
-        DatosEstancia.setAlignment(Element.ALIGN_CENTER);
-        documento.add(DatosEstancia);
-        
-        Paragraph nomHuesp   = new Paragraph("\n\n   Huesped:    "+recibo[0]+ "\n   Cuidad de origen:    "+
-                recibo[1]+"\n   Fecha de ingreso:    "+recibo[2]+" \n   Fecha de salida:    "+recibo[3]+
-                "\n   Tipo de habitacion:    "+recibo[4]+"\n   Costo de la habitacion por noche:    "+recibo[5]+
-                "\n   Dias de estancia en Frogg Resort:    "+recibo[6]+ " \n   Sub total:    "+recibo[7]+
-                "\n   Total a pagar:    "+recibo[8]+"\n   Lista de cargos extra:\n\n\n                 "+ servicioExtra,
-                FontFactory.getFont("arial",
-                11, Font.BOLD, BaseColor.BLACK)
+                9, Font.BOLD, BaseColor.BLACK)
         );
         
         nomHuesp.setAlignment(Element.ALIGN_LEFT);
         documento.add(nomHuesp);
         
-         Paragraph gerente   = new Paragraph("\n\n\n____________________________\n\nVictor Zaragoza\n\n Gracias por su visita vuelva pronto",
+        Paragraph DatosEstancia   = new Paragraph("_______________________________________________                                      "
+                + "           Datos De La Estancia          _______________________________________________",
                 FontFactory.getFont("arial",
-                12, Font.BOLD, BaseColor.BLACK)
+                14, Font.BOLD, BaseColor.BLACK)
+        );
+        
+        DatosEstancia.setAlignment(Element.ALIGN_CENTER);
+        documento.add(DatosEstancia);
+        
+         Paragraph estHuesp   = new Paragraph("\n\n             Tipo de habitacion:              "+recibo[4]+
+                "                                        Costo de la habitacion por noche:                "+ recibo[5]+
+                "\n             Dias de estancia en Frogg Resort:              "+recibo[6]+
+                "                                        Sub total:                 "+recibo[7]+
+                "\n                         Total a pagar:    "+recibo[8],
+                FontFactory.getFont("arial",
+                9, Font.BOLD, BaseColor.BLACK)
+        );
+        
+        estHuesp.setAlignment(Element.ALIGN_LEFT);
+        documento.add(estHuesp);
+        
+        Paragraph DatosExtra   = new Paragraph("_______________________________________________                "
+                + "                  Información de Cargos Extra _______________________________________________",
+                FontFactory.getFont("arial",
+                14, Font.BOLD, BaseColor.BLACK)
+        );
+        
+        DatosExtra.setAlignment(Element.ALIGN_CENTER);
+        documento.add(DatosExtra);
+        
+         Paragraph extHuesp   = new Paragraph("\n             Lista de cargos extra:\n                "
+                 + servicioExtra, FontFactory.getFont("arial", 9, Font.BOLD, BaseColor.BLACK));
+        
+        extHuesp.setAlignment(Element.ALIGN_LEFT);
+        documento.add(extHuesp);
+        
+        Image firma= Image.getInstance("src/imagenes/firma.jpg");
+        firma.setAlignment(Element.ALIGN_CENTER);
+        documento.add(firma);
+        
+         Paragraph gerente   = new Paragraph("\n\n\n\n\n\nVictor Zaragoza\nGerente de Froog Resort\n Gracias por su visita vuelva pronto",
+                FontFactory.getFont("arial",
+                10, Font.BOLD, BaseColor.BLACK)
         );
         
         gerente.setAlignment(Element.ALIGN_CENTER);
