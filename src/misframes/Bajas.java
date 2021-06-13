@@ -144,7 +144,7 @@ public class Bajas extends javax.swing.JInternalFrame {
 
     private void jButtonSalidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalidaActionPerformed
        
-        String servicioExtra="";
+        //String servicioExtra="";
         int contCargos=0;
         
         hab = this.jTextFieldRegistroSalida.getText().trim(); 
