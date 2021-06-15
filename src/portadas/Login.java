@@ -48,16 +48,24 @@ public class Login extends javax.swing.JFrame {
         jPasswordFieldContraseña.setOpaque(false);
         jPasswordFieldContraseña.setBorder(null);
         jPasswordFieldContraseña.setForeground(Color.WHITE);
+        
+       
+        
+        
 
         jPanelFondoPrincipal.setSize(1051, 665);
 
         try {
             //create the font to use. Specify the size!
-            Font fuente = Font.createFont(Font.TRUETYPE_FONT, new File("src\\font\\Braxton Free.otf")).deriveFont(60f);
+            Font fuente = Font.createFont(Font.TRUETYPE_FONT, new File("src\\font\\Braxton Free.otf")).deriveFont(30f);
+            Font fuente1 = Font.createFont(Font.TRUETYPE_FONT, new File("src\\font\\Braxton Free.otf")).deriveFont(60f);
+            Font fuente2 = Font.createFont(Font.TRUETYPE_FONT, new File("src\\font\\Braxton Free.otf")).deriveFont(30f);
             GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
             //register the font
             ge.registerFont(fuente);
             jLabelTitulo.setFont(fuente);
+            jLabelTitulo1.setFont(fuente1);
+            jLabeltitulo2.setFont(fuente2);
         } catch (IOException e) {
             e.printStackTrace();
         } catch (FontFormatException e) {
@@ -87,38 +95,75 @@ public class Login extends javax.swing.JFrame {
         jTextFieldCuenta = new javax.swing.JTextField();
         jLabelContraseña = new javax.swing.JLabel();
         jPasswordFieldContraseña = new javax.swing.JPasswordField();
-        jButtonIngresar = new javax.swing.JButton();
         jLabelTitulo1 = new javax.swing.JLabel();
+        jLabeltitulo2 = new javax.swing.JLabel();
+        jPanel1 = new PanelIm("src/imagenes/logucci2.png");
+        jPanel3 = new PanelIm("src/imagenes/logucci2.png");
+        jButtonIngresar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Bienvenido a Froog Resort");
-        setMaximumSize(new java.awt.Dimension(1051, 665));
         setResizable(false);
 
         jPanelFondoPrincipal.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabelTitulo.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
+        jLabelTitulo.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jLabelTitulo.setForeground(new java.awt.Color(255, 255, 255));
         jLabelTitulo.setText("Valle de los Sapos Arcoíris No. 129 Boullevard Martinaisse, Revachol.");
-        jPanelFondoPrincipal.add(jLabelTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 150, 740, 30));
+        jPanelFondoPrincipal.add(jLabelTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 190, 740, 70));
 
         jLabelCuenta.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         jLabelCuenta.setForeground(new java.awt.Color(255, 255, 255));
         jLabelCuenta.setText("Cuenta:");
-        jPanelFondoPrincipal.add(jLabelCuenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 560, 158, 44));
+        jPanelFondoPrincipal.add(jLabelCuenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 460, 158, 44));
 
         jTextFieldCuenta.setFont(new java.awt.Font("Dubai", 0, 18)); // NOI18N
         jTextFieldCuenta.setOpaque(false);
-        jPanelFondoPrincipal.add(jTextFieldCuenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 560, 160, 40));
+        jPanelFondoPrincipal.add(jTextFieldCuenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 460, 160, 40));
 
         jLabelContraseña.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         jLabelContraseña.setForeground(new java.awt.Color(255, 255, 255));
         jLabelContraseña.setText("Contraseña:");
-        jPanelFondoPrincipal.add(jLabelContraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 620, -1, 60));
+        jPanelFondoPrincipal.add(jLabelContraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 520, -1, 60));
 
         jPasswordFieldContraseña.setFont(new java.awt.Font("Dubai", 0, 18)); // NOI18N
         jPasswordFieldContraseña.setOpaque(false);
-        jPanelFondoPrincipal.add(jPasswordFieldContraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 630, 160, 40));
+        jPanelFondoPrincipal.add(jPasswordFieldContraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 530, 160, 40));
+
+        jLabelTitulo1.setFont(new java.awt.Font("Times New Roman", 1, 48)); // NOI18N
+        jLabelTitulo1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelTitulo1.setText("Froog Resort");
+        jPanelFondoPrincipal.add(jLabelTitulo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 20, -1, -1));
+
+        jLabeltitulo2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabeltitulo2.setText("Que empiece el confort");
+        jPanelFondoPrincipal.add(jLabeltitulo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 100, 270, 50));
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 160, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 130, Short.MAX_VALUE)
+        );
+
+        jPanelFondoPrincipal.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 160, 130));
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 160, Short.MAX_VALUE)
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 130, Short.MAX_VALUE)
+        );
+
+        jPanelFondoPrincipal.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 0, 160, 130));
 
         jButtonIngresar.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         jButtonIngresar.setText("Ingresar");
@@ -128,12 +173,7 @@ public class Login extends javax.swing.JFrame {
                 jButtonIngresarActionPerformed(evt);
             }
         });
-        jPanelFondoPrincipal.add(jButtonIngresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 690, -1, -1));
-
-        jLabelTitulo1.setFont(new java.awt.Font("Times New Roman", 1, 48)); // NOI18N
-        jLabelTitulo1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabelTitulo1.setText("Froog Resort");
-        jPanelFondoPrincipal.add(jLabelTitulo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 80, -1, -1));
+        jPanelFondoPrincipal.add(jButtonIngresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 600, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -222,6 +262,9 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelCuenta;
     private javax.swing.JLabel jLabelTitulo;
     private javax.swing.JLabel jLabelTitulo1;
+    private javax.swing.JLabel jLabeltitulo2;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanelFondoPrincipal;
     private javax.swing.JPasswordField jPasswordFieldContraseña;
     private javax.swing.JTextField jTextFieldCuenta;
