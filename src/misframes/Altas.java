@@ -5,21 +5,18 @@
  */
 package misframes;
 
-import basededatos.MySqlConn;
 import java.awt.Graphics;
 import java.awt.Image;
-import static java.awt.event.KeyEvent.VK_ENTER;
 import java.beans.PropertyVetoException;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.StringTokenizer;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import static javax.swing.JOptionPane.ERROR_MESSAGE;
 import javax.swing.JPanel;
-import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 import portadas.Menu;
 
@@ -30,10 +27,55 @@ import portadas.Menu;
 public class Altas extends javax.swing.JInternalFrame {
 
     public static int seleccionada;
+    public static float costoHab;
     private static int tipo;
     public Altas() {
         initComponents();
         
+    }
+    
+    private String generarSalida(){
+        SimpleDateFormat dFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Calendar cal = this.jDateChooserIngreso.getCalendar();
+        cal.add(Calendar.DAY_OF_MONTH, (int) this.jSpinnerTotalD.getValue());
+        Date modifiedDate = cal.getTime();
+        String date = dFormat.format(modifiedDate);
+        this.jTextFieldSalidaD.setText(date);
+        return date;
+    }
+    
+    private String Validaciones(){
+        String s="";
+        //Validación nombre
+        if(this.jTextFieldNombre.getText().matches("[A-Za-z ]+$") && this.jTextFieldNombre.getText().length() < 50){
+            StringTokenizer tokenizer = new StringTokenizer(this.jTextFieldNombre.getText());
+            int i = 0;
+            while ( tokenizer.hasMoreTokens() ) {
+                String palabra = tokenizer.nextToken();// obtener palabra
+                i++;
+            }
+            if(i <= 1){
+                s+="\nError en el formato nombre.Solo caracteres";
+            }
+        }
+        else{
+            s+="\nError en el formato nombre.Solo caracteres";
+        }
+        //Validación ciudad
+        if(!(this.jTextFieldCiudad.getText().matches("[A-Za-z ]+$") && this.jTextFieldCiudad.getText().length() < 50))
+            s+="\nError en el formato ciudad. Solo caracteres";
+        //Validación habitación
+        if(Altas.jTextFieldHabitacion.getText().equals("0") || Altas.jTextFieldHabitacion.getText().isEmpty())
+            s+="\nHabitación no seleccionada.";
+        //Validación fecha 
+        Calendar cal = this.jDateChooserIngreso.getCalendar();
+        try{
+            if(!cal.isLenient())
+                s+="\nFecha no indicada.";   
+        } catch(Exception e){
+            s+="\nFecha no indicada.";
+        } 
+        return s;
     }
 
     @SuppressWarnings("unchecked")
@@ -60,7 +102,6 @@ public class Altas extends javax.swing.JInternalFrame {
         jTextFieldCiudad = new javax.swing.JTextField();
         jSpinnerTotalP = new javax.swing.JSpinner();
         jButtonRegistrar = new javax.swing.JButton();
-        jButtonRecibo = new javax.swing.JButton();
         jDateChooserIngreso = new com.toedter.calendar.JDateChooser();
         jRadioButtonTriple = new javax.swing.JRadioButton();
         jRadioButtonSencilla = new javax.swing.JRadioButton();
@@ -76,49 +117,49 @@ public class Altas extends javax.swing.JInternalFrame {
 
         jLabel2.setFont(new java.awt.Font("Dubai", 1, 24)); // NOI18N
         jLabel2.setText("Información de Huésped");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(32, 25, -1, -1));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, -1, -1));
 
         jLabelNombre.setFont(new java.awt.Font("Dubai", 0, 20)); // NOI18N
         jLabelNombre.setText("Nombre Completo:");
-        jPanel1.add(jLabelNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(32, 74, -1, -1));
+        jPanel1.add(jLabelNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 50, -1, -1));
 
         jLabelCiudad.setFont(new java.awt.Font("Dubai", 0, 20)); // NOI18N
         jLabelCiudad.setText("Ciudad de Origen:");
-        jPanel1.add(jLabelCiudad, new org.netbeans.lib.awtextra.AbsoluteConstraints(32, 114, -1, -1));
+        jPanel1.add(jLabelCiudad, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, -1, -1));
 
         jLabel1.setFont(new java.awt.Font("Dubai", 1, 24)); // NOI18N
         jLabel1.setText("Información de Habitación");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(32, 183, -1, -1));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Dubai", 0, 20)); // NOI18N
         jLabel3.setText("Total de Personas:");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(32, 313, -1, -1));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 270, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("Dubai", 0, 20)); // NOI18N
         jLabel4.setText("Tipo de Habitación:");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(32, 232, -1, -1));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 190, -1, -1));
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 405, -1, -1));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 435, Short.MAX_VALUE)
+            .addGap(0, 410, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 595, Short.MAX_VALUE)
+            .addGap(0, 520, Short.MAX_VALUE)
         );
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(587, 25, -1, -1));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(587, 35, 410, 520));
 
         jLabel6.setFont(new java.awt.Font("Dubai", 1, 24)); // NOI18N
         jLabel6.setText("Estancia en el Hotel");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(32, 405, -1, -1));
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 370, -1, -1));
 
         jLabel7.setFont(new java.awt.Font("Dubai", 0, 20)); // NOI18N
         jLabel7.setText("Fecha de ingreso: ");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(32, 502, -1, -1));
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 460, -1, -1));
 
         jButtonSelHab.setFont(new java.awt.Font("Dubai", 0, 20)); // NOI18N
         jButtonSelHab.setText("Seleccionar Habitación");
@@ -127,34 +168,34 @@ public class Altas extends javax.swing.JInternalFrame {
                 jButtonSelHabActionPerformed(evt);
             }
         });
-        jPanel1.add(jButtonSelHab, new org.netbeans.lib.awtextra.AbsoluteConstraints(354, 355, -1, -1));
+        jPanel1.add(jButtonSelHab, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 320, -1, -1));
 
         jLabel8.setFont(new java.awt.Font("Dubai", 0, 20)); // NOI18N
         jLabel8.setText("Fecha de salida:");
-        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(32, 550, -1, -1));
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 510, -1, -1));
 
         jLabel9.setFont(new java.awt.Font("Dubai", 0, 20)); // NOI18N
         jLabel9.setText("Total de días:");
-        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(32, 454, -1, -1));
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 410, -1, -1));
 
         jTextFieldNombre.setBackground(new java.awt.Color(204, 255, 204));
         jTextFieldNombre.setFont(new java.awt.Font("Dubai", 0, 16)); // NOI18N
         jTextFieldNombre.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jPanel1.add(jTextFieldNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(201, 74, 305, 34));
+        jPanel1.add(jTextFieldNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 50, 360, 34));
 
         jSpinnerTotalD.setFont(new java.awt.Font("Dubai", 0, 16)); // NOI18N
         jSpinnerTotalD.setModel(new javax.swing.SpinnerNumberModel(1, 1, 30, 1));
         jSpinnerTotalD.setOpaque(false);
-        jPanel1.add(jSpinnerTotalD, new org.netbeans.lib.awtextra.AbsoluteConstraints(201, 454, 305, -1));
+        jPanel1.add(jSpinnerTotalD, new org.netbeans.lib.awtextra.AbsoluteConstraints(215, 410, 350, -1));
 
         jTextFieldCiudad.setBackground(new java.awt.Color(204, 255, 204));
         jTextFieldCiudad.setFont(new java.awt.Font("Dubai", 0, 16)); // NOI18N
         jTextFieldCiudad.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jPanel1.add(jTextFieldCiudad, new org.netbeans.lib.awtextra.AbsoluteConstraints(201, 115, 305, 34));
+        jPanel1.add(jTextFieldCiudad, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 100, 360, 34));
 
         jSpinnerTotalP.setFont(new java.awt.Font("Dubai", 0, 16)); // NOI18N
         jSpinnerTotalP.setOpaque(false);
-        jPanel1.add(jSpinnerTotalP, new org.netbeans.lib.awtextra.AbsoluteConstraints(264, 314, 305, -1));
+        jPanel1.add(jSpinnerTotalP, new org.netbeans.lib.awtextra.AbsoluteConstraints(205, 270, 360, -1));
 
         jButtonRegistrar.setFont(new java.awt.Font("Dubai", 0, 20)); // NOI18N
         jButtonRegistrar.setText("Registrar");
@@ -163,15 +204,11 @@ public class Altas extends javax.swing.JInternalFrame {
                 jButtonRegistrarActionPerformed(evt);
             }
         });
-        jPanel1.add(jButtonRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(201, 596, -1, -1));
-
-        jButtonRecibo.setFont(new java.awt.Font("Dubai", 0, 20)); // NOI18N
-        jButtonRecibo.setText("Recibo");
-        jPanel1.add(jButtonRecibo, new org.netbeans.lib.awtextra.AbsoluteConstraints(399, 596, 107, -1));
+        jPanel1.add(jButtonRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 550, -1, -1));
 
         jDateChooserIngreso.setDateFormatString("yyyy-MM-dd");
         jDateChooserIngreso.setFont(new java.awt.Font("Dubai", 0, 16)); // NOI18N
-        jPanel1.add(jDateChooserIngreso, new org.netbeans.lib.awtextra.AbsoluteConstraints(201, 499, 305, 35));
+        jPanel1.add(jDateChooserIngreso, new org.netbeans.lib.awtextra.AbsoluteConstraints(215, 460, 350, 35));
 
         buttonGroupTipo.add(jRadioButtonTriple);
         jRadioButtonTriple.setFont(new java.awt.Font("Dubai", 0, 20)); // NOI18N
@@ -182,7 +219,7 @@ public class Altas extends javax.swing.JInternalFrame {
                 jRadioButtonTripleActionPerformed(evt);
             }
         });
-        jPanel1.add(jRadioButtonTriple, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 267, 91, -1));
+        jPanel1.add(jRadioButtonTriple, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 230, 91, -1));
 
         buttonGroupTipo.add(jRadioButtonSencilla);
         jRadioButtonSencilla.setFont(new java.awt.Font("Dubai", 0, 20)); // NOI18N
@@ -193,7 +230,7 @@ public class Altas extends javax.swing.JInternalFrame {
                 jRadioButtonSencillaActionPerformed(evt);
             }
         });
-        jPanel1.add(jRadioButtonSencilla, new org.netbeans.lib.awtextra.AbsoluteConstraints(32, 267, -1, -1));
+        jPanel1.add(jRadioButtonSencilla, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 230, -1, -1));
 
         buttonGroupTipo.add(jRadioButtonDoble);
         jRadioButtonDoble.setFont(new java.awt.Font("Dubai", 0, 20)); // NOI18N
@@ -204,28 +241,19 @@ public class Altas extends javax.swing.JInternalFrame {
                 jRadioButtonDobleActionPerformed(evt);
             }
         });
-        jPanel1.add(jRadioButtonDoble, new org.netbeans.lib.awtextra.AbsoluteConstraints(141, 267, 91, -1));
+        jPanel1.add(jRadioButtonDoble, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 230, 91, -1));
 
+        jTextFieldSalidaD.setEditable(false);
         jTextFieldSalidaD.setFont(new java.awt.Font("Dubai", 0, 16)); // NOI18N
-        jTextFieldSalidaD.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldSalidaDActionPerformed(evt);
-            }
-        });
-        jTextFieldSalidaD.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                jTextFieldSalidaDFocusGained(evt);
-            }
-        });
-        jPanel1.add(jTextFieldSalidaD, new org.netbeans.lib.awtextra.AbsoluteConstraints(201, 547, 305, 27));
+        jPanel1.add(jTextFieldSalidaD, new org.netbeans.lib.awtextra.AbsoluteConstraints(215, 510, 350, 27));
 
         jLabel10.setFont(new java.awt.Font("Dubai", 0, 20)); // NOI18N
         jLabel10.setText("Numero Habitacion: ");
-        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(32, 359, -1, -1));
+        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 320, -1, -1));
 
         jTextFieldHabitacion.setEditable(false);
         jTextFieldHabitacion.setFont(new java.awt.Font("Dubai", 0, 16)); // NOI18N
-        jPanel1.add(jTextFieldHabitacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 360, 70, 30));
+        jPanel1.add(jTextFieldHabitacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 320, 130, 40));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -235,7 +263,7 @@ public class Altas extends javax.swing.JInternalFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 629, Short.MAX_VALUE)
         );
 
         pack();
@@ -245,43 +273,32 @@ public class Altas extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         this.jSpinnerTotalP.setValue(1);
         this.jSpinnerTotalP.setModel(new SpinnerNumberModel(1, 1, 3, 1));
+        Altas.jTextFieldHabitacion.setText("");
         tipo=1;
+        costoHab = 3000;
     }//GEN-LAST:event_jRadioButtonSencillaActionPerformed
 
     private void jRadioButtonDobleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonDobleActionPerformed
         // TODO add your handling code here:
         this.jSpinnerTotalP.setValue(1);
         this.jSpinnerTotalP.setModel(new SpinnerNumberModel(1, 1, 4, 1));
+        Altas.jTextFieldHabitacion.setText("");
         tipo=2;
+        costoHab = 5000;
     }//GEN-LAST:event_jRadioButtonDobleActionPerformed
 
     private void jRadioButtonTripleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonTripleActionPerformed
         // TODO add your handling code here:
         this.jSpinnerTotalP.setValue(1);
         this.jSpinnerTotalP.setModel(new SpinnerNumberModel(1, 1, 5, 1));
+        Altas.jTextFieldHabitacion.setText("");
         tipo=3;
+        costoHab = 9000;
     }//GEN-LAST:event_jRadioButtonTripleActionPerformed
-
-    private void jTextFieldSalidaDFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldSalidaDFocusGained
-        // TODO add your handling code here:
-        SimpleDateFormat dFormat = new SimpleDateFormat("yyyy-MM-dd");
-        Calendar cal = this.jDateChooserIngreso.getCalendar();
-        cal.add(Calendar.DAY_OF_MONTH, (int) this.jSpinnerTotalD.getValue());
-        Date modifiedDate = cal.getTime();
-        String date = dFormat.format(modifiedDate);
-        this.jTextFieldSalidaD.setText(date);
-    }//GEN-LAST:event_jTextFieldSalidaDFocusGained
 
     private void jButtonRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRegistrarActionPerformed
         // TODO add your handling code here:
-        /*
-        COSAS A RECUPERAR DESDE FUERA:
-            -NUMERO DE HABITACION (numHab)
-            -COSTO DE LA HABITACION (costoHab)
-            -
-        */
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        float costoHab = 1000;
         String nombre, ciudad;
         int totalPersonas, totalDias;
         float costoExtra = 0;
@@ -290,21 +307,43 @@ public class Altas extends javax.swing.JInternalFrame {
         ciudad = this.jTextFieldCiudad.getText();
         totalDias = (int) this.jSpinnerTotalD.getValue();
         totalPersonas = (int) this.jSpinnerTotalP.getValue();
-        inicio = sdf.format(this.jDateChooserIngreso.getDate());
+        if(totalPersonas > tipo)
+            costoExtra=(costoHab*0.30f)*(totalPersonas-tipo);
         
-       
-        salida=this.jTextFieldSalidaD.getText();
+        String validacion = Validaciones();
+        if(validacion.isEmpty()){
+            inicio = sdf.format(this.jDateChooserIngreso.getDate());
+            salida= generarSalida();
+            String parte1 = "Insert into clientes (NAME, CIUDAD, HABITACION, DIAS, TOTPERSONAS, COSTOEXTRA, INGRESO, SALIDA) VALUES (";
+            String parte2 = "'"+nombre+"','"+ciudad+"','"+seleccionada+"','"+totalDias+"','"+totalPersonas+"','"+costoExtra+"','"+inicio+"','"+salida+"')";
+            String query = parte1+parte2;
+            int j=Menu.conn.Update(query);
+
+            System.out.println("Numero de registros afectados por la accion: "+j);
+
+            String query2="Update habitaciones set DISPONIBLE= '1' where HABITACION = "+ seleccionada;
+            Menu.conn.Update(query2);
+            
+            String datos[] = {nombre,ciudad,Integer.toString(Altas.tipo),Integer.toString(totalPersonas),Altas.jTextFieldHabitacion.getText()
+                    ,Float.toString(costoHab),Float.toString(costoExtra),inicio,salida, Integer.toString(totalDias)};
+           
+            this.repaint();
+            Recibo recibo = new Recibo(datos);
+            Menu.jDesktopPane1.add(recibo);
+            try {
+                recibo.setMaximum(true);
+            } catch (PropertyVetoException ex) {
+                java.util.logging.Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            recibo.setVisible(true);
+            this.dispose();
+        }
+        else{
+            JOptionPane.showMessageDialog( null, validacion, "Error", ERROR_MESSAGE); 
+        }
         
-        costoExtra=(costoHab*0.30f)*(totalPersonas-tipo);
-        String parte1 = "Insert into clientes (NAME, CIUDAD, HABITACION, DIAS, TOTPERSONAS, COSTOEXTRA, INGRESO, SALIDA) VALUES (";
-        String parte2 = "'"+nombre+"','"+ciudad+"','"+seleccionada+"','"+totalDias+"','"+totalPersonas+"','"+costoExtra+"','"+inicio+"','"+salida+"')";
-        String query = parte1+parte2;
-        int j=Menu.conn.Update(query);
         
-        System.out.println("Numero de registros afectados por la accion: "+j);
-        
-        String query2="Update habitaciones set DISPONIBLE= '1' where HABITACION = "+ seleccionada;
-        Menu.conn.Update(query2);
     }//GEN-LAST:event_jButtonRegistrarActionPerformed
 
     private void jButtonSelHabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSelHabActionPerformed
@@ -332,14 +371,9 @@ public class Altas extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_jButtonSelHabActionPerformed
 
-    private void jTextFieldSalidaDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldSalidaDActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldSalidaDActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroupTipo;
-    private javax.swing.JButton jButtonRecibo;
     private javax.swing.JButton jButtonRegistrar;
     private javax.swing.JButton jButtonSelHab;
     private com.toedter.calendar.JDateChooser jDateChooserIngreso;

@@ -24,6 +24,7 @@ import org.jfree.chart.renderer.category.BarRenderer;
 import org.jfree.chart.title.TextTitle;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
+import org.jfree.util.Rotation;
 import org.jfree.util.TableOrder;
 import portadas.Menu;
 
@@ -93,7 +94,7 @@ public class ConsultasGraficas extends javax.swing.JInternalFrame {
         
         //Obtener el área de gráficos y modificar fondo, transparencia de secciones; formato y tipo de letra de etiquetas
         PiePlot p = (PiePlot) subgrafico.getPlot();
-        p.setLabelFont(new Font("Dubai", Font.PLAIN, 18));
+        p.setLabelFont(new Font("Dubai", Font.PLAIN, 14));
         p.setBackgroundPaint(Color.white);
         p.setForegroundAlpha(0.5f);
         p.setLabelGenerator(new StandardPieSectionLabelGenerator("{0} {1} = ({2})", NumberFormat.getNumberInstance(), NumberFormat.getPercentInstance()));
@@ -223,7 +224,7 @@ public class ConsultasGraficas extends javax.swing.JInternalFrame {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 821, Short.MAX_VALUE)
+            .addGap(0, 629, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

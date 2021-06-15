@@ -33,67 +33,47 @@ public class EmpleadoDelMes extends javax.swing.JInternalFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabelImagen = new javax.swing.JLabel();
         jButtonConsulta = new javax.swing.JButton();
-        jComboBoxMes = new javax.swing.JComboBox<>();
+        jComboBoxMes = new javax.swing.JComboBox<String>();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextAreaDatosEmpleado = new javax.swing.JTextArea();
 
-        jLabel1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jLabel1.setText("Consulta de Empleado del mes");
+        setBackground(new java.awt.Color(204, 255, 204));
+        setClosable(true);
+        setTitle("Consulta Empleado del Mes");
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jLabel1.setFont(new java.awt.Font("Dubai", 1, 24)); // NOI18N
+        jLabel1.setText("Consulta de Empleado del mes");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(353, 13, -1, -1));
+        getContentPane().add(jLabelImagen, new org.netbeans.lib.awtextra.AbsoluteConstraints(566, 99, 404, 468));
+
+        jButtonConsulta.setFont(new java.awt.Font("Dubai", 0, 20)); // NOI18N
         jButtonConsulta.setText("Consultar");
         jButtonConsulta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonConsultaActionPerformed(evt);
             }
         });
+        getContentPane().add(jButtonConsulta, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 99, -1, -1));
 
-        jComboBoxMes.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio" }));
+        jComboBoxMes.setFont(new java.awt.Font("Dubai", 0, 20)); // NOI18N
+        jComboBoxMes.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio" }));
         jComboBoxMes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBoxMesActionPerformed(evt);
             }
         });
+        getContentPane().add(jComboBoxMes, new org.netbeans.lib.awtextra.AbsoluteConstraints(85, 100, 97, -1));
 
+        jTextAreaDatosEmpleado.setEditable(false);
+        jTextAreaDatosEmpleado.setBackground(new java.awt.Color(153, 255, 153));
         jTextAreaDatosEmpleado.setColumns(20);
+        jTextAreaDatosEmpleado.setFont(new java.awt.Font("Dubai", 0, 18)); // NOI18N
         jTextAreaDatosEmpleado.setRows(5);
+        jTextAreaDatosEmpleado.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Información del Empleado", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dubai", 1, 20))); // NOI18N
         jScrollPane1.setViewportView(jTextAreaDatosEmpleado);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(168, 168, 168)
-                        .addComponent(jComboBoxMes, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(88, 88, 88)
-                        .addComponent(jButtonConsulta))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(204, 204, 204)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(197, 197, 197)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabelImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(157, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addGap(44, 44, 44)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBoxMes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonConsulta))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
-                .addComponent(jLabelImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(35, 35, 35)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(85, 379, 404, 188));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -130,8 +110,6 @@ public class EmpleadoDelMes extends javax.swing.JInternalFrame {
         try {
                 ruta= Menu.conn.rs.getString(3);
                 ocupacion= Menu.conn.rs.getString(4);
-                System.out.println("ruta"+ruta);
-                
                 Image aux = new ImageIcon(this.getClass().getResource("/imagenes/"+ruta)).getImage();
                 ImageIcon aux2=new ImageIcon(aux);
                 jLabelImagen.setIcon(aux2);
