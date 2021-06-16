@@ -11,6 +11,7 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.HashMap;
 import java.util.Iterator;
+import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import portadas.Menu;
 
@@ -586,7 +587,7 @@ public class EsquemaPisos extends javax.swing.JInternalFrame {
             n = Menu.conn.rs.getRow();
             Menu.conn.rs.first();
         } catch (Exception e){
-            System.out.println("Error #1...");
+            JOptionPane.showMessageDialog(this,"Error base de datos");
         }
         if (n != 0){//hay datos
             int num;
@@ -598,7 +599,7 @@ public class EsquemaPisos extends javax.swing.JInternalFrame {
                     habitaciones.get(num).addItemListener(escucha);
                     Menu.conn.rs.next();
                 } catch (Exception e){
-                    System.out.println("Error #2...");
+                    JOptionPane.showMessageDialog(this,"Error base de datos");
                 }
             }
         }//fin if

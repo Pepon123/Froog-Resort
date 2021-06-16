@@ -38,7 +38,7 @@ public class Tabla {
                 lista.add(new Huesped(rs.getString(1), rs.getString(2)));
             }
         }catch(SQLException e){
-            JOptionPane.showMessageDialog(null, "Error");
+            JOptionPane.showMessageDialog(null, "Error base de datos");
         }
          for (int i = 0; i < lista.size(); i++) {
              colum.addRow(new String[]{lista.get(i).getNombre(),lista.get(i).getNumHab()});

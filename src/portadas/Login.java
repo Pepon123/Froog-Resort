@@ -201,7 +201,6 @@ public class Login extends javax.swing.JFrame {
             contraseña = new String(passw);
             String contraseñaencriptada;
             contraseñaencriptada = org.apache.commons.codec.digest.DigestUtils.md5Hex(contraseña);
-            System.out.println(contraseñaencriptada);
             if(contraseñaMySql.equals(contraseñaencriptada)){
                 JOptionPane.showMessageDialog(this,"Bienvenido "+this.conn.rs.getString(1)+" al sistema.");
                 new Menu().setVisible(true);
@@ -212,7 +211,6 @@ public class Login extends javax.swing.JFrame {
             }
         }catch(SQLException ex){
             JOptionPane.showMessageDialog(this,"No existe la cuenta");
-            System.out.println("No existe la cuenta");
         }
         
     }//GEN-LAST:event_jButtonIngresarActionPerformed

@@ -335,7 +335,6 @@ public class Altas extends javax.swing.JInternalFrame {
             } catch (PropertyVetoException ex) {
                 java.util.logging.Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
             recibo.setVisible(true);
             this.dispose();
         }
@@ -356,7 +355,7 @@ public class Altas extends javax.swing.JInternalFrame {
             n = Menu.conn.rs.getRow();
             Menu.conn.rs.first();
         } catch (Exception e) {
-            System.out.println("Error #1...");
+            JOptionPane.showMessageDialog(this,"Error base de datos");
         }
         if (n != 0) {
             this.repaint();

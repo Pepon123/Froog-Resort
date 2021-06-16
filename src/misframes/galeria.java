@@ -50,10 +50,7 @@ public class galeria extends javax.swing.JInternalFrame {
             while(rs.next()){
                 ruta=rs.getString(1);
             }
-            System.out.println(ruta);
-            System.out.println(System.getProperty("java.class.path"));
             Image aux = new ImageIcon(this.getClass().getResource("/imagenes/"+ruta)).getImage();
-            //Image aux=new ImageIcon("/Images/"+ruta).getImage();
             ImageIcon aux2=new ImageIcon(aux);
             
             jLabel1.setIcon(aux2);
@@ -134,11 +131,11 @@ public class galeria extends javax.swing.JInternalFrame {
         jLabel2.setFont(new java.awt.Font("Dubai", 2, 22)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("HABITACION SIMPLE");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 60, 510, 70));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 60, 510, 70));
 
         jLabel3.setFont(new java.awt.Font("Dubai", 1, 24)); // NOI18N
         jLabel3.setText("Galería");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 30, -1, -1));
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 30, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -165,7 +162,6 @@ public class galeria extends javax.swing.JInternalFrame {
             while(rs.next()){
                 ruta=rs.getString(1);
             }
-            System.out.println(ruta);
             Image aux = new ImageIcon(this.getClass().getResource("/imagenes/"+ruta)).getImage();
             ImageIcon aux2=new ImageIcon(aux);
             jLabel1.setIcon(aux2);
@@ -198,7 +194,6 @@ public class galeria extends javax.swing.JInternalFrame {
             while(rs.next()){
                 ruta=rs.getString(1);
             }
-            System.out.println(ruta);
             Image aux = new ImageIcon(this.getClass().getResource("/imagenes/"+ruta)).getImage();
             ImageIcon aux2=new ImageIcon(aux);
             jLabel1.setIcon(aux2);

@@ -10,6 +10,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.text.NumberFormat;
 import java.util.List;
+import javax.swing.JOptionPane;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -70,7 +71,7 @@ public class ConsultasGraficas extends javax.swing.JInternalFrame {
                 Menu.conn.rs.last();
                 hab_Ocupadas[i] = Menu.conn.rs.getRow();
             } catch (Exception e) {
-                System.out.println("Error base de datos");
+                JOptionPane.showMessageDialog(this,"Error base de datos");
             }
         }
         //Llenar datos para gráfico
@@ -120,7 +121,7 @@ public class ConsultasGraficas extends javax.swing.JInternalFrame {
                 Menu.conn.rs.last();
                 dataset.setValue(Menu.conn.rs.getRow(),tipoHab[i],tipoHab[i]);
             } catch (Exception e) {
-                System.out.println("Error base de datos");
+                JOptionPane.showMessageDialog(this,"Error base de datos");
             }
         }
         
@@ -167,7 +168,7 @@ public class ConsultasGraficas extends javax.swing.JInternalFrame {
             Menu.conn.rs.last();
             totalO = Menu.conn.rs.getRow();
         } catch (Exception e) {
-            System.out.println("Error base de datos");
+            JOptionPane.showMessageDialog(this,"Error base de datos");
         }
         
         //Llenar datos para la gráfica

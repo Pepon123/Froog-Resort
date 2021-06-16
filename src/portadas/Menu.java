@@ -350,20 +350,20 @@ public class Menu extends javax.swing.JFrame {
             ingresoTotal = ent.readFloat();
 
         } catch (IOException e) {
-            System.out.println("No se ha encontrado el archivo");
+            JOptionPane.showMessageDialog(this,"No se ha encontrado el archivo");
         } finally{
             if (entrada != null) {
                 try {
                     entrada.close();
                 } catch (IOException ex) {
-                    System.out.println("Error");
+                    JOptionPane.showMessageDialog(this,"Error");
                 }
             }
             if (ent != null) {
                 try {
                     ent.close();
                 } catch (IOException ex) {
-                    System.out.println("Error");
+                    JOptionPane.showMessageDialog(this,"Error");
                 }
             }
         }      
@@ -404,7 +404,7 @@ public class Menu extends javax.swing.JFrame {
             Menu.conn.rs.first();
             
         } catch (Exception e) {
-            System.out.println("Error #1...");
+            JOptionPane.showMessageDialog(this,"Error base de datos");
         }
         
         if (n != 0) {
@@ -426,16 +426,13 @@ public class Menu extends javax.swing.JFrame {
                     
                     Menu.conn.rs.next();
                 } catch (Exception e){
-                    System.out.println("Error #2...");
+                    JOptionPane.showMessageDialog(this,"Error base de datos");
                 }
             }
         }
         
         JOptionPane.showMessageDialog(this, "En el piso "+piso+ " están disponibles:\n"+
                 "Sencillas: "+sencilla+"\n"+"Dobles: "+doble+"\n"+"Triples: "+triple);
-        System.out.println("Sencilla  "+sencilla);
-        System.out.println("doble   "+doble);
-        System.out.println("triple   "+triple);
                 
         
     }//GEN-LAST:event_jMenuConsulta9ActionPerformed
