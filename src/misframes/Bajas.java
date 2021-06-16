@@ -198,7 +198,7 @@ public class Bajas extends javax.swing.JInternalFrame {
                     Menu.conn.Update(query);      
    
                     JOptionPane.showMessageDialog(this, "Salida registrada exitosamente, puede guardar"
-                          + " su recibo haciendo click en el boton de abajo byeeeeeee");
+                          + " su recibo haciendo click en el boton de abajo");
                 }
                 
                 else{
